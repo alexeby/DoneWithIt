@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+Ultimate_React_Native-Part_1
 
 # macOS
 .DS_Store
