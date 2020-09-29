@@ -1,13 +1,9 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
-import {
-  AppForm,
-  AppFormField,
-  SubmitButton,
-  AppFormPicker,
-} from "../components/forms";
+import { Form, FormField, FormPicker, SubmitButton } from "../components/forms";
+import CategoriesPickerItem from "../components/CategoriesPickerItem";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -17,15 +13,34 @@ const validationSchema = Yup.object().shape({
 });
 
 const categories = [
-  { label: "Furniture", value: 1 },
-  { label: "Clothing", value: 2 },
-  { label: "Camera", value: 3 },
+  {
+    label: "Furniture",
+    value: 1,
+    backgroundColor: "#fc5c65",
+    icon: "floor-lamp",
+  },
+  { label: "Cars", value: 2, backgroundColor: "#fd9644", icon: "car" },
+  { label: "Cameras", value: 3, backgroundColor: "#fed330", icon: "camera" },
+  { label: "Games", value: 4, backgroundColor: "#26de81", icon: "cards" },
+  {
+    label: "Clothing",
+    value: 5,
+    backgroundColor: "#2bcbba",
+    icon: "shoe-heel",
+  },
+  { label: "Sports", value: 6, backgroundColor: "#45aaf2", icon: "basketball" },
+  {
+    label: "Movies & Music",
+    value: 7,
+    backgroundColor: "#4b7bec",
+    icon: "headphones",
+  },
 ];
 
 function ListingEditScreen(props) {
   return (
     <Screen style={styles.container}>
-      <AppForm
+      <Form
         initialValues={{
           title: "",
           price: "",
@@ -35,19 +50,23 @@ function ListingEditScreen(props) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <AppFormField maxLength={255} name="title" placeholder="Title" />
-        <AppFormField
+        <FormField maxLength={255} name="title" placeholder="Title" />
+        <FormField
           maxLength={8}
           keyboardType="numeric"
           name="price"
           placeholder="Price"
+          width={120}
         />
-        <AppFormPicker
+        <FormPicker
           items={categories}
           name="category"
+          numberOfColumns={3}
+          PickerItemComponent={CategoriesPickerItem}
           placeholder="Category"
+          width="50%"
         />
-        <AppFormField
+        <FormField
           maxLength={255}
           multiline
           numberOfLines={3}
@@ -56,7 +75,7 @@ function ListingEditScreen(props) {
           placeholder="Description"
         />
         <SubmitButton title="Post" />
-      </AppForm>
+      </Form>
     </Screen>
   );
 }
